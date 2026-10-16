@@ -4,7 +4,7 @@ import pandas as pd
 import google.generativeai as genai
 from prophet import Prophet
 # Use Streamlit Secrets for the API key to keep it safe
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+genai.configure(api_key=st.secrets["GCP_SERVICE_ACCOUNT_KEY"])
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 st.set_page_config(layout="wide")
