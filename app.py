@@ -20,8 +20,7 @@ if uploaded_file:
     query = st.text_input("Ask a question about your data:")
     if query:
         prompt = f"Given the table 'sales_data', write a DuckDB SQL query for: {query}. Return only the SQL code."
-        sql = model.generate_content(prompt).text.replace("
-sql", "").replace("``", "")
+        sql = model.generate_content(prompt).text.replace("sql", "").replace("``", "")
 st.code(sql)
 st.write(duckdb.query(sql).df())
 
