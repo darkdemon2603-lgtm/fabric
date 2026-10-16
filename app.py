@@ -1,14 +1,3 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-}import streamlit as st
-import duckdb
-import pandas as pd
-import google.generativeai as genai
-from prophet import Prophet
-
 # 1. Configuration
 genai.configure(api_key="AQ.Ab8RN6Jg8DrqDLcK2SsABChH3m7SdPka-0gt3qyrFVeUt1x8yA")
 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -31,7 +20,9 @@ if uploaded_file:
 sql", "").replace("``", "")
 st.code(sql)
 st.write(duckdb.query(sql).df())
-                                      if st.button("Unveil Future Sales"):
+
+# 4. Forecasting
+if st.button("Unveil Future Sales"):
 df['ds'] = pd.to_datetime(df['date']) # Ensure your CSV has 'date' and 'revenue' columns
 df['y'] = df['revenue']
 m = Prophet()
@@ -39,4 +30,4 @@ m.fit(df[['ds', 'y']])
 future = m.make_future_dataframe(periods=30)
 forecast = m.predict(future)
 st.line_chart(forecast.set_index('ds')[['yhat']])
-                                                        
+EOF
