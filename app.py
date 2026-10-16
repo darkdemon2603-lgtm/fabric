@@ -3,7 +3,6 @@ import duckdb
 import pandas as pd
 import google.generativeai as genai
 from prophet import Prophet
-
 # Use Streamlit Secrets for the API key to keep it safe
 api_key = st.secrets["AQ.Ab8RN6Jg8DrqDLcK2SsABChH3m7SdPka-0gt3qyrFVeUt1x8yA"]
 genai.configure(api_key=api_key)
