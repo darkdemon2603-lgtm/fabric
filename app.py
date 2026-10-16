@@ -23,12 +23,25 @@ if uploaded_file:
         sql = model.generate_content(prompt).text.replace("sql", "").replace("``", "")
 st.code(sql)
 st.write(duckdb.query(sql).df())
-
+# ----------------------------------------------------------------------
+#  Forecasting – runs only when the user clicks the button
+# ----------------------------------------------------------------------
 if st.button("Unveil Future Sales"):
-df['ds'] = pd.to_datetime(df['date'])
-df['y'] = df['revenue']
-m = Prophet()
-m.fit(df[['ds', 'y']])
-future = m.make_future_dataframe(periods=30)
-forecast = m.predict(future)
-st.line_chart(forecast.set_index('ds')[['yhat']])
+    # Ensure the date column is a proper datetime type
+    df['ds'] = pd.to_datetime(df['date'])
+
+    # Prophet expects the target column to be called 'y'
+    df['y'] = df['revenue']
+
+    # Fit the Prophet model
+    m = Prophet()
+    m.fit(df[['ds', 'y']])
+
+    # Create a future dataframe for the next 30 days
+    future = m.make_future_dataframe(periods=30)
+
+    # Generate the forecast
+    forecast = m.predict(future)
+
+    # Plot the forecast (yhat = predicted value)
+    st.line_chart(forecast.set_index('ds')[['yhat']])
