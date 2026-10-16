@@ -1,6 +1,5 @@
-text
 streamlit
-duckdb
-pandas
-prophet
-google-generativeai
+   duckdb
+   pandas
+   prophet
+   google-generativeai
