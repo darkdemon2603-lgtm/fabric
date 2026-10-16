@@ -20,8 +20,6 @@ if uploaded_file:
     if query:
         prompt = f"Given the table 'sales_data', write a DuckDB SQL query for: {query}. Return only the SQL code."
         sql = model.generate_content(prompt).text.replace("sql", "").replace("``", "")
-st.code(sql)
-st.write(duckdb.query(sql).df())
 # ----------------------------------------------------------------------
 #  Forecasting – runs only when the user clicks the button
 # ----------------------------------------------------------------------
